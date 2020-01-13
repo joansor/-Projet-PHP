@@ -1,0 +1,89 @@
+body{
+
+    box-sizing: border-box;
+    background: rgb(180, 174, 174)
+  
+}
+
+#container{
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+    -webkit-transform:translate(-50%, -50%);
+    -moz-transform:translate(-50%, -50%);
+    -ms-transform:translate(-50%, -50%);
+    -o-transform:translate(-50%, -50%);
+    /*border: solid 1px;*/
+    
+}
+
+.case{
+position: relative;
+width: 150px;
+height: 150px;
+border : solid 1px;
+background-color: black;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+-ms-border-radius: 5px;
+-o-border-radius: 5px;
+
+}
+
+#case1{
+    float: right;
+    border-radius: 5px;
+    margin-top: 30%;
+    
+}
+#case0{
+
+  float: left;
+  margin-top: 30%;
+  
+}
+a#revision{
+
+  
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+    -webkit-transform:translate(-50%, -50%);
+    -moz-transform:translate(-50%, -50%);
+    -ms-transform:translate(-50%, -50%);
+    -o-transform:translate(-50%, -50%);
+}
+a#test{
+
+   
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+    -webkit-transform:translate(-50%, -50%);
+    -moz-transform:translate(-50%, -50%);
+    -ms-transform:translate(-50%, -50%);
+    -o-transform:translate(-50%, -50%);
+}
+
+a{
+    text-transform: uppercase;
+    color: orangered;
+    text-decoration: none;
+    font-weight: bold;
+}
+a#test1{
+
+    border: solid;
+}
+
+input.resultat{
+
+    width: 76px;
+    height: 36px;
+    color: green;
+}

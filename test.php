@@ -12,11 +12,11 @@
     <body>
 
         <div id="container">
-            <div class="case">
+            <div class="case" id="case0">
                 <a href="index.php?projet=revision" id="revision">Révision</a>
             </div>
-            <div class="case">
-                <a href="index.php?projet=test">Test</a>
+            <div class="case"id="case1">
+                <a href="index.php?projet=test" id="test">Test</a>
             </div>
         </div>
         <br>
@@ -34,16 +34,18 @@
             $resultat = $rand * $table;
 
 
-            echo "<form method='GET' action='test.php' id='formulaire'>";
+            echo "<form method=\"GET\" action=\"test.php\" id=\"formulaire\">";
 
             echo "<input type=\"hidden\" name=\"rand\" value=\"$rand\">";
 
             echo "<input type=\"hidden\" name=\"table\" value=\"$table\">";
 
- 
+            echo "<input type=\"myNumber\" name=\"myNumber\"><br>";
 
-            echo "<input type='number' name='number' value=''<br>";
-            echo "<input type='submit' name='result' value='Résultat'>";
+            echo "<input type=\"hidden\" name=\"number\" value=\"result\"<br>";
+
+            echo "<input type=\"submit\" class= \"resultat\" value=\"Résultat\">";
+
             echo "</form>";
 
         }
@@ -54,7 +56,10 @@
         if (isset($_GET['number'])) $number = $_GET['number'];
         else $number = "";
 
-        if ($resultat === $number && isset($_GET['result']) &&$_GET['number'] ) {
+        if (isset($_GET['myNumber'])) $myNumber = $_GET['myNumber'];
+        else $myNumber = "";
+
+        if ($number === $myNumber ) {
 
             echo "Bravo!";
         } else {

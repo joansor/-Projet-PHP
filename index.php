@@ -12,18 +12,18 @@
     <body>
 
         <div id="container">
-            <div class="case">
+            <div class="case" id="case0">
                 <a href="index.php?projet=revision" id="revision">Révision</a>
             </div>
-            <div class="case">
-                <a href="test.php">Test</a>
+            <div class="case" id="case1">
+                <a href="test.php" id="test">Test</a>
             </div>
         </div>
         <br>
         <br>
         <br>
         <?php
-        $numbers = array(1, 2, 3, 4, 5, 6, 7, 8, 9);
+       //$numbers = array(1, 2, 3, 4, 5, 6, 7, 8, 9);
         //var_dump($numbers);
 
         if (isset($_GET['projet'])) $projet = $_GET['projet'];
@@ -31,14 +31,14 @@
 
         if ($projet == "revision") {
 
-            echo "<form method='GET' action='index.php' id='formulaire'>";
+            echo "<form method=\"GET\" action=\"index.php\" id=\"formulaire\">";
 
-            for ($i = 0; $i < sizeof($numbers); $i++) {
+            for ($i = 0; $i < 10; $i++) {
                 //var_dump($numbers[$i]);
-                echo "<input type='checkbox' name='numbers[]' value='" . $numbers[$i] . "'>" . $numbers[$i] . "<br>";
+                echo "<input type=\"checkbox\" name=\"numbers[]\" value=\"" . $i . "\">" . $i . "<br>";
             }
     
-            echo "<input type='submit' name='result' value='Résultat'>";
+            echo "<input type=\"submit\" name=\"result\" class = \"resultat\" value=\"Résultat\">";
         }
         if (isset($_GET['numbers'])) $checkboxes = $_GET['numbers'];
         else $checkboxes = "";
