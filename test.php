@@ -34,17 +34,17 @@
             $resultat = $rand * $table;
 
 
-            echo "<form method=\"GET\" action=\"test.php\" id=\"formulaire\">";
+            echo "<form method=\"GET\" action=\"index.php\" id=\"formulaire\">";
 
             echo "<input type=\"hidden\" name=\"rand\" value=\"$rand\">";
 
             echo "<input type=\"hidden\" name=\"table\" value=\"$table\">";
 
-            echo "<input type=\"myNumber\" name=\"myNumber\"><br>";
+            echo "<input type=\"myNumber\" name=\"myNumber\"<br>";
 
             echo "<input type=\"hidden\" name=\"number\" value=\"result\"<br>";
 
-            echo "<input type=\"submit\" class= \"resultat\" value=\"Résultat\">";
+            echo "<input type=\"submit\" name=\"result\"class= \"resultat\" value=\"Résultat\">";
 
             echo "</form>";
 

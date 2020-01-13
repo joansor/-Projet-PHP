@@ -16,14 +16,14 @@
                 <a href="index.php?projet=revision" id="revision">Révision</a>
             </div>
             <div class="case" id="case1">
-                <a href="test.php" id="test">Test</a>
+                <a href="index.php?projet=testall" id="test">Test</a>
             </div>
         </div>
         <br>
         <br>
         <br>
         <?php
-       //$numbers = array(1, 2, 3, 4, 5, 6, 7, 8, 9);
+        //$numbers = array(1, 2, 3, 4, 5, 6, 7, 8, 9);
         //var_dump($numbers);
 
         if (isset($_GET['projet'])) $projet = $_GET['projet'];
@@ -37,7 +37,7 @@
                 //var_dump($numbers[$i]);
                 echo "<input type=\"checkbox\" name=\"numbers[]\" value=\"" . $i . "\">" . $i . "<br>";
             }
-    
+
             echo "<input type=\"submit\" name=\"result\" class = \"resultat\" value=\"Résultat\">";
         }
         if (isset($_GET['numbers'])) $checkboxes = $_GET['numbers'];
@@ -72,6 +72,42 @@
         }
 
 
+        if ($projet === "testall") {
+
+            if (isset($_GET['rand'])) $randomNumber = $_GET['rand'];
+            else $randomNumber = "";
+            if (isset($_GET['table'])) $$randomNumber1 = $_GET['table'];
+            else $randomNumber1 = "";
+            if (isset($_GET['result'])) $resultat = $_GET['result'];
+            else $resultat = "";
+            if (isset($_GET['myNumber'])) $resultat = $_GET['myNumber'];
+            else $myNumber = "";
+            if (isset($_GET['number'])) $resultat = $_GET['number'];
+            else $number = "";
+
+
+            $randomNumber = rand(1, 10);
+            $randomNumber1 = rand(1, 10);
+            $resultat = $randomNumber * $randomNumber1;
+
+            echo "---combien fait? $randomNumber.x.$randomNumber1<br>";
+            echo "<form method=\"GET\" action=\"index.php\" id=\"formulaire\">";
+            echo "<input type=\"hidden\" name=\"rand\" value=\"$randomNumber\">";
+            echo "<input type=\"hidden\" name=\"table\" value=\"$randomNumber1\">";
+            echo "<input type=\"hidden\" name=\"number\" value=\"result\"<br>";
+            echo "<input type=\"myNumber\" name=\"myNumber\">";
+            echo "<input type=\"submit\" name=\"result\"class= \"resultat\" value=\"Résultat\">";
+            echo "</form>";
+            echo "--------test-------";
+
+            if ($resultat === $myNumber) {
+
+                echo "BRAVO";
+            } else {
+
+                echo "perdu";
+            }
+        }
         ?>
 
         <!--<script src="assets/js/app.js"></script>-->
