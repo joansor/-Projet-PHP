@@ -31,7 +31,7 @@
 
         if ($projet == "revision") {
 
-            echo "<form method=\"GET\" action=\"index.php\" id=\"formulaire\">";
+            echo "<form method=\"GET\" action=\"test.php?table=\" id=\"formulaire\">";
 
             for ($i = 0; $i < 10; $i++) {
                 //var_dump($numbers[$i]);
@@ -90,8 +90,8 @@
             $randomNumber1 = rand(1, 10);
             $resultat = $randomNumber * $randomNumber1;
 
-            echo "---combien fait? $randomNumber.x.$randomNumber1<br>";
-            echo "<form method=\"GET\" action=\"index.php\" id=\"formulaire\">";
+            echo "<form method=\"GET\" action=\"index.php\" id=\"formulaire\">";     
+            echo "---combien fait? $randomNumber*$randomNumber1<br>";
             echo "<input type=\"hidden\" name=\"rand\" value=\"$randomNumber\">";
             echo "<input type=\"hidden\" name=\"table\" value=\"$randomNumber1\">";
             echo "<input type=\"hidden\" name=\"number\" value=\"result\"<br>";
