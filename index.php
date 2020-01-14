@@ -8,6 +8,10 @@
     if (isset($_GET['listeTablesacocher'])) $listeTablesacocher = $_GET['listeTablesacocher']; else $listeTablesacocher = "";
     if ($listeTablesacocher) $ctrl = sizeof($listeTablesacocher); else $ctrl = "";
 
+    //if (isset($_GET['ok'])) $ok = $_GET['ok']; else $ok = "";
+    if (isset($_GET['nb[]'])) $nb = $_GET['nb']; else $nb = "";
+    if (isset($_GET['select'])) $i = $_GET['select']; else $i = "";
+
     if (isset($_GET['aleatoire'])) $aleatoire = $_GET['aleatoire']; else $aleatoire = "";
     if (isset($_GET['table'])) $table = $_GET['table']; else $table = "";
     if (isset($_GET['reponse'])) $reponse = $_GET['reponse']; else $reponse = "";
@@ -80,7 +84,9 @@
     }
 
     function testGlobal()
-    {
+    {   
+        global $i;
+
         echo" --- testGlobal ---<br>";
 
         $aleatoire = rand(1, 10); // génere un nombre aléatoire entre 1 et 10
@@ -94,10 +100,24 @@
             echo "<input type=\"hidden\" name=\"op\" value=\"result\">";
             echo "<input type=\"hidden\" name=\"aleatoire\" value=\"$aleatoire\">";
             echo "<input type=\"hidden\" name=\"table\" value=\"$table\">";
-            echo "<input type=\"number\" name =\"reponse\" required>";
+            echo "<input type=\"number\" name =\"reponse\"required>";
             echo "<input type=\"submit\" class =\"resultat\" value=\"Valider\">";
-
+           
         echo "</form>";
+
+        //deuxieme formulaire pour le selecteur
+        echo "<form method=\"GET\" action=\"index.php?\" id=\"formulaire\">";
+
+        echo"<select onchange=\"this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);\">\n"; // Selecteur de tables de multiplications;
+        //On boucle sur les 10 table de multiplication
+       for ($i = 1; $i < 11; $i++)
+       {
+
+       echo "<option value=\"index.php?op=testTable&table=" . $table[$i]." $i \" name=\"select\">$i</option>";
+       } 
+       //echo "<input type=\"submit\"name=\"ok\" class =\"resultat\" value=\"ok\">";
+       echo "</select>";
+       echo "</form>";
     }
 
     function testTable()
@@ -118,9 +138,11 @@
             echo "<input type=\"hidden\" name =\"aleatoire\" value=\"$aleatoire\">";
             echo "<input type=\"hidden\" name =\"table\" value=\"$table\">";
             echo "<input type=\"number\" name =\"reponse\" required>";
-            echo "<input type=\"submit\" value =\"valider\">";	
+            echo "<input type=\"submit\" value =\"valider\">";
+        
+           
 
-        echo "</form>";
+            echo "</form>";
     }
 
     function result()
