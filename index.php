@@ -1,249 +1,177 @@
-	<!DOCTYPE html>
-	<html lang="fr">
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<link rel="stylesheet" href="assets/css/style.css">
-		<title>projet calculette</title>
-	</head>
+<?php 
 
-	<body>
-		<?php require("header.php"); ?>
+    require("header.php");
 
+    if (isset($_GET['op'])) $op = $_GET['op']; else $op = ""; // pour switch sur : index, test, result
 
-		<br>
-		<br>
-		<br>
-		<?php
+    if (isset($_GET['listeTablesacocher'])) $listeTablesacocher = $_GET['listeTablesacocher']; else $listeTablesacocher = "";
+    if ($listeTablesacocher) $ctrl = sizeof($listeTablesacocher); else $ctrl = "";
 
-		if (isset($_GET['op'])) $op = $_GET['op']; else $op = ""; // pour switch sur : index, test, result
+    if (isset($_GET['aleatoire'])) $aleatoire = $_GET['aleatoire']; else $aleatoire = "";
+    if (isset($_GET['table'])) $table = $_GET['table']; else $table = "";
+    if (isset($_GET['reponse'])) $reponse = $_GET['reponse']; else $reponse = "";
 
-		if (isset($_GET['projet'])) $projet = $_GET['projet'];
-		else $projet = "";
+    function index()
+    {
+        echo" --- index ----<br>";
 
-		if (isset($_GET['numbers'])) $checkboxes = $_GET['numbers'];
-		else $checkboxes = "";
+        echo"<div id=\"container\">
 
-		if ($checkboxes) $ctrl = sizeof($checkboxes);
-		else $ctrl = "";
+            <div class=\"case\" id=\"case0\">
 
-		// if ($projet === "revision") {
+                <a href=\"index.php?op=revision\" id=\"revision\" id=\"revision\">Révision</a>
 
-		// 	echo "<form method=\"GET\" action=\"index.php\" id=\"formulaire\">";
+            </div>
 
-		// 	for ($i = 0; $i < sizeof($numbers); $i++) {
-		// 		var_dump($numbers[$i]);
-		// 		echo "<input type='checkbox' name='numbers[]' value='" . $numbers[$i] . "'>" . $numbers[$i] . "<br>";
-		// 	}
+            <div class=\"case\" id=\"case1\">
 
-		// 	echo "<input type=\"submit\" name=\"result\" value=\"Résultat\"class =\"resultat\">";
-		// }
+                <a href=\"index.php?op=testGlobal\" id=\"test\">Test</a>
 
+            </div>
 
-		if ($ctrl == 0 && isset($_GET['result'])) {
-			echo "Attention vous n'avez pas cochez le bon nombre de cases !!";
-			exit;
-		} else if (isset($_GET['result'])) {
+        </div>";
+    }
 
-			echo "Vous avez choisi :<br>";
-			foreach ($checkboxes as $valeur) {
+    function revision()
+    {
+        global $listeTablesacocher, $resultat, $ctrl;
 
-				echo "le " . $valeur . ".<br>";
-				tablemultiplication($valeur);
-			}
-		}
+        echo" --- revision ----<br>";
 
-		if (isset($_GET['randomNumber'])) $randomNumber = $_GET['randomNumber'];
-		else $randomNumber = "";
+        echo "<form method=\"GET\" action=\"index.php\" id=\"formulaire\">";
 
-		if (isset($_GET['randomNumber1'])) $randomNumber1 = $_GET['randomNumber1'];
-		else $randomNumber1 = "";
+            echo "<input type=\"hidden\" name =\"op\" value=\"revision\">"; 
 
-		if (isset($_GET['result'])) $resultat = $_GET['result'];
-		else $resultat = "";
+            for ($i = 1; $i < 10; $i++) 
+            {
+                
+                if (in_array($i, $listeTablesacocher)) $checked = "checked"; else $checked = "";
 
-		if (isset($_GET['myNumber'])) $myNumber = $_GET['myNumber'];
-		else $myNumber = "";
+                echo "<input type='checkbox' name='listeTablesacocher[]' value='" . $i . "' $checked>Table de " . $i . "<br>";
+            }
 
-		if ($projet === "test") {
+            echo "<input type=\"submit\" value=\"valider\" class =\"resultat\"><br><br><br>"; 
 
-			$counter = 3;
-			$randomNumber = rand(1, 9);
-			$randomNumber1 = rand(1, 9);
+        echo"</form>";
 
-			$resultat = $randomNumber * $randomNumber1;
+        if($listeTablesacocher)
+        {
+            foreach ($listeTablesacocher as $table) 
+            {
+                echo "le " . $table . ".<br>";
+                tablemultiplication($table);
+            }
+        }
+        
+        if ($ctrl == 0 && $resultat) 
+        {
+            echo "Merci de sélectionner une table de multiplication !!";
+        } 
+        else if ($resultat) 
+        {
+            echo "Vous avez choisi :<br>";
+            foreach ($listeTablesacocher as $valeur) 
+            {
+                echo "le " . $valeur . ".<br>";
+                tablemultiplication($valeur);
+            }
+        }
+    }
 
-			echo "<form method=\"GET\" action=\"index.php\" id=\"formulaire\">";
+    function testGlobal()
+    {
+        echo" --- testGlobal ---<br>";
 
-				echo "<input type=\"hidden\" name=\"randomNumber\" value=\"$randomNumber\">";
-				echo "<input type=\"hidden\" name=\"randomNumber1\" value=\"$randomNumber1\">";
-				echo "<input type=\"number\" name=\"result\" value=\"$randomNumber\"><br>";
+        $aleatoire = rand(1, 10); // génere un nombre aléatoire entre 1 et 10
+        $table = rand(1, 10); // génere un nombre aléatoire entre 1 et 10 (table de multiplication)
 
-				echo "<input type=\"submit\" class =\"resultat\" value=\"Valider\">";
-			
-			echo "</form>";
+        $question = "$aleatoire * $table"; // Génere la Question
+        echo"Combien font : $question"; // Affiche la Question
 
-			echo "$randomNumber * $randomNumber1 = ?";
+        echo "<form method=\"GET\" action=\"index.php\" id=\"formulaire\">";
 
-			if ($myNumber === $resultat) {
+            echo "<input type=\"hidden\" name=\"op\" value=\"result\">";
+            echo "<input type=\"hidden\" name=\"aleatoire\" value=\"$aleatoire\">";
+            echo "<input type=\"hidden\" name=\"table\" value=\"$table\">";
+            echo "<input type=\"number\" name =\"reponse\" required>";
+            echo "<input type=\"submit\" class =\"resultat\" value=\"Valider\">";
 
-				echo "bravo!!";
-			} elseif ($myNumber !== $resultat) {
+        echo "</form>";
+    }
 
-				$counter--;
+    function testTable()
+    {
+        global $table;
 
-				if ($counter === 0) {
+        echo" --- testTable ($table) ---<br><br><br>";
 
-					echo "Allez sur Révision";
-				}
-			}
-		}
+        $aleatoire = rand(1, 10);
 
+        $question = "$aleatoire * $table";
+        echo"Combien font : $question";
 
+        // Formulaire pour répondre a la question ----> action = result()
+        echo "<form method=\"GET\" action=\"index.php\" id=\"formulaire\">";
 
-function index()
-{
-	echo" --- index ----<br>";
+            echo "<input type=\"hidden\" name =\"op\" value=\"result\">";
+            echo "<input type=\"hidden\" name =\"aleatoire\" value=\"$aleatoire\">";
+            echo "<input type=\"hidden\" name =\"table\" value=\"$table\">";
+            echo "<input type=\"number\" name =\"reponse\" required>";
+            echo "<input type=\"submit\" value =\"valider\">";	
 
-	echo"<div id=\"container\">
+        echo "</form>";
+    }
 
-		<div class=\"case\" id=\"case0\">
+    function result()
+    {
+        global $aleatoire, $table, $reponse;
 
-			<a href=\"index.php?op=revision\" id=\"revision\" id=\"revision\">Révision</a>
+        echo" --- result ---<br>";
 
-		</div>
+        $result = $aleatoire * $table;
 
-		<div class=\"case\" id=\"case1\">
+        if($reponse == $result) echo"Bravo  $aleatoire * $table font bien $result<br>";
+        else echo"Perdu,  $aleatoire * $table font $result et non pas $reponse --> <a href=\"index.php?op=revision&listeTablesacocher%5B%5D=$table\">Vas reviser la table de $table</a><br>";
+    }
 
-			<a href=\"index.php?op=testGlobal\" id=\"test\">Test</a>
+    function tablemultiplication($table)
+    {
+        for ($i = 1; $i < 10; $i++) 
+        {
+            echo "$i * $table = ". $i * $table ."<br>";
+        }
 
-		</div>
+        echo "<br><a href=\"index.php?op=testTable&table=" . $table . " \"id=\"test1\">Test</a><br><br><br><br>";
+    }
 
-	</div>";
-}
+    switch ($op)
+    {
+        case"index":
+        index();
+        break;
 
+        case"revision":
+        revision();
+        break;
 
-function revision()
-{
-	if (isset($_GET['numbers'])) $numbers = $_GET['numbers']; else $numbers = "";
+        case"testGlobal":
+        testGlobal();
+        break;
 
-	echo" --- revision ----<br>";
-	echo "<form method=\"GET\" action=\"index.php\" id=\"formulaire\">";
+        case"testTable":
+        testTable();
+        break;
 
+        case"result":
+        result();
+        break;
 
-	echo "<input type=\"hidden\" name =\"op\" value=\"revision\">"; 
+        default:
+        index();
+        break;
+    }
 
+    require("footer.php"); 
+?>
 
-	for ($i = 1; $i < 10; $i++) 
-	{
-		//var_dump($numbers[$i]);
-		echo "<input type='checkbox' name='numbers[]' value='" . $i . "'>" . $i . "<br>";
-	}
-
-	echo "<input type=\"submit\" value=\"valider\" class =\"resultat\"><br><br><br>"; 
-
-	if($numbers)
-	{
-		foreach ($numbers as $table) 
-		{
-			echo "le " . $table . ".<br>";
-			tablemultiplication($table);
-		}
-	}
-
-}
-
-function testGlobal()
-{
-	echo" --- testGlobal ---<br>";
-
-	$aleatoire1 = rand(1, 10);
-	$aleatoire2 = rand(1, 10);
-
-	$question = "$aleatoire2 * $aleatoire2";
-	echo"Combien font : $question";
-}
-
-function testTable()
-{
-	if (isset($_GET['table'])) $table = $_GET['table']; else $table = "";
-	echo" --- testTable ($table) ---<br><br><br>";
-
-	$aleatoire = rand(1, 10);
-
-	$question = "$aleatoire * $table";
-	echo"Combien font : $question";
-
-	// Formulaire pour répondre a la question ----> action = result()
-	echo "<form method=\"GET\" action=\"index.php\" id=\"formulaire\">";
-
-		echo "<input type=\"hidden\" name =\"op\" value=\"result\">";
-		echo "<input type=\"hidden\" name =\"aleatoire\" value=\"$aleatoire\">";
-		echo "<input type=\"hidden\" name =\"table\" value=\"$table\">";
-		echo "<input type=\"number\" name =\"reponse\">";
-		echo "<input type=\"submit\" value =\"valider\">";	
-
-	echo "</form>";
-}
-
-function result()
-{
-	echo" --- result ---<br>";
-
-	if (isset($_GET['table'])) $table = $_GET['table']; else $table = "";
-	if (isset($_GET['aleatoire'])) $aleatoire = $_GET['aleatoire']; else $aleatoire = "";
-	if (isset($_GET['reponse'])) $reponse = $_GET['reponse']; else $reponse = "";
-
-	$result = $aleatoire * $table;
-
-	if($reponse == $result) echo"Bravo<br>";
-	else echo"Perdu<br>";
-}
-
-function tablemultiplication($table)
-{
-	for ($i = 1; $i < 10; $i++) 
-	{
-		echo "$i * $table = ". $i * $table ."<br>";
-	}
-
-	echo "<br><a href=\"index.php?op=testTable&table=" . $table . " \"id=\"test1\">Test</a><br><br><br><br>";
-}
-
-switch ($op)
-{
-	case"index":
-	index();
-	break;
-
-	case"revision":
-	revision();
-	break;
-
-	case"testGlobal":
-	testGlobal();
-	break;
-
-	case"testTable":
-	testTable();
-	break;
-
-	case"result":
-	result();
-	break;
-
-	default:
-	index();
-	break;
-}
-
-
-		?>
-		<?php
-		require("footer.php"); ?>
-		<!--<script src="assets/js/app.js"></script>-->
-	</body>
-
-	</html>
