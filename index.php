@@ -5,7 +5,7 @@
 
     if (isset($_GET['op'])) $op = $_GET['op']; else $op = ""; // pour switch sur : index, test, result
 
-    if (isset($_GET['listeTablesaCocher'])) $listeTablesaCocher = $_GET['listeTablesaCocher']; else $listeTablesaCocher = "";
+    if (isset($_GET['listeTablesaCocher[]'])) $listeTablesaCocher = $_GET['listeTablesaCocher[]']; else $listeTablesaCocher = [];
     if ($listeTablesaCocher) $ctrl = ($listeTablesaCocher); else $ctrl = "";
 
     //if (isset($_GET['ok'])) $ok = $_GET['ok']; else $ok = "";
