@@ -13,7 +13,6 @@
 
     <header>
     
-    <img src=""
-    
+    <img src="assets/images/MATH_logo.png" id="imageheader">
     
     </header>

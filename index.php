@@ -5,8 +5,8 @@
 
     if (isset($_GET['op'])) $op = $_GET['op']; else $op = ""; // pour switch sur : index, test, result
 
-    if (isset($_GET['listeTablesacocher'])) $listeTablesacocher = $_GET['listeTablesacocher']; else $listeTablesacocher = "";
-    if ($listeTablesacocher) $ctrl = sizeof($listeTablesacocher); else $ctrl = "";
+    if (isset($_GET['listeTablesaCocher'])) $listeTablesaCocher = $_GET['listeTablesaCocher']; else $listeTablesaCocher = "";
+    if ($listeTablesaCocher) $ctrl = ($listeTablesaCocher); else $ctrl = "";
 
     //if (isset($_GET['ok'])) $ok = $_GET['ok']; else $ok = "";
     if (isset($_GET['nb[]'])) $nb = $_GET['nb']; else $nb = "";
@@ -15,11 +15,12 @@
     if (isset($_GET['aleatoire'])) $aleatoire = $_GET['aleatoire']; else $aleatoire = "";
     if (isset($_GET['table'])) $table = $_GET['table']; else $table = "";
     if (isset($_GET['reponse'])) $reponse = $_GET['reponse']; else $reponse = "";
+    echo "<main>";
 
     function index()
     {
         echo" --- index ----<br>";
-
+       
         echo"<div id=\"container\">
 
             <div class=\"case\" id=\"case0\">
@@ -35,14 +36,14 @@
             </div>
 
         </div>";
+       
     }
 
     function revision()
     {
-        global $listeTablesacocher, $resultat, $ctrl;
-
-        echo" --- revision ----<br>";
-
+        global $listeTablesaCocher, $resultat, $ctrl;
+        
+        
         echo "<form method=\"GET\" action=\"index.php\" id=\"formulaire\">";
 
             echo "<input type=\"hidden\" name =\"op\" value=\"revision\">"; 
@@ -50,35 +51,43 @@
             for ($i = 1; $i < 10; $i++) 
             {
                 
-                if (in_array($i, $listeTablesacocher)) $checked = "checked"; else $checked = "";
-
-                echo "<input type='checkbox' name='listeTablesacocher[]' value='" . $i . "' $checked>Table de " . $i . "<br>";
+                if (in_array($i, $listeTablesaCocher)) $checked = "checked"; else $checked = "";
+                //var_dump($i,$listeTablesaCocher);
+                
+                echo "<input type='checkbox' name='listeTablesaCocher[]' value=" . $i . " $checked><p>Table de " . $i . "<br></p>";
+                
             }
 
             echo "<input type=\"submit\" value=\"valider\" class =\"resultat\"><br><br><br>"; 
 
         echo"</form>";
-
-        if($listeTablesacocher)
+        
+        if($listeTablesaCocher)
         {
-            foreach ($listeTablesacocher as $table) 
+            foreach ($listeTablesaCocher as $table) 
             {
-                echo "le " . $table . ".<br>";
+                echo "<p>le " . $table . ".<br></p>";
                 tablemultiplication($table);
             }
         }
         
         if ($ctrl == 0 && $resultat) 
         {
-            echo "Merci de sélectionner une table de multiplication !!";
+          
+            echo "<p>Merci de sélectionner une table de multiplication !!</p>";
+            
         } 
         else if ($resultat) 
         {
-            echo "Vous avez choisi :<br>";
-            foreach ($listeTablesacocher as $valeur) 
+            
+            echo "<p>Vous avez choisi :<br></p>";
+            
+            foreach ($listeTablesaCocher as $valeur) 
             {
-                echo "le " . $valeur . ".<br>";
+                
+                echo "<p>le " . $valeur . ".<br></p>";
                 tablemultiplication($valeur);
+                
             }
         }
     }
@@ -93,7 +102,8 @@
         $table = rand(1, 10); // génere un nombre aléatoire entre 1 et 10 (table de multiplication)
 
         $question = "$aleatoire * $table"; // Génere la Question
-        echo"Combien font : $question"; // Affiche la Question
+
+        echo"<p>Combien font : $question</p>"; // Affiche la Question
 
         echo "<form method=\"GET\" action=\"index.php\" id=\"formulaire\">";
 
@@ -110,10 +120,10 @@
 
         echo"<select onchange=\"this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);\">\n"; // Selecteur de tables de multiplications;
         //On boucle sur les 10 table de multiplication
-       for ($i = 1; $i < 11; $i++)
+       for ($j = 1; $j < 11; $j++)
        {
 
-       echo "<option value=\"index.php?op=testTable&table=" . $table[$i]." $i \" name=\"select\">$i</option>";
+       echo "<option value=\"index.php?op=testTable&table=" . $table[$j]." $j \" name=\"select\">$j</option>";
        } 
        //echo "<input type=\"submit\"name=\"ok\" class =\"resultat\" value=\"ok\">";
        echo "</select>";
@@ -129,7 +139,7 @@
         $aleatoire = rand(1, 10);
 
         $question = "$aleatoire * $table";
-        echo"Combien font : $question";
+        echo"<p>Combien font : $question</p>";
 
         // Formulaire pour répondre a la question ----> action = result()
         echo "<form method=\"GET\" action=\"index.php\" id=\"formulaire\">";
@@ -153,15 +163,15 @@
 
         $result = $aleatoire * $table;
 
-        if($reponse == $result) echo"Bravo  $aleatoire * $table font bien $result<br>";
-        else echo"Perdu,  $aleatoire * $table font $result et non pas $reponse --> <a href=\"index.php?op=revision&listeTablesacocher%5B%5D=$table\">Vas reviser la table de $table</a><br>";
+        if($reponse == $result) echo"<p>Bravo  $aleatoire * $table font bien $result<br></p>";
+        else echo"<p>Perdu,  $aleatoire * $table font $result et non pas $reponse --> <a href=\"index.php?op=revision&listeTablesaCocher%5B%5D=$table\">Vas reviser la table de $table</a><br></p>";
     }
 
     function tablemultiplication($table)
     {
         for ($i = 1; $i < 10; $i++) 
         {
-            echo "$i * $table = ". $i * $table ."<br>";
+            echo "<p id=\"text\">$i * $table = ". $i * $table ."<br></p>";
         }
 
         echo "<br><a href=\"index.php?op=testTable&table=" . $table . " \"id=\"test1\">Test</a><br><br><br><br>";
@@ -193,7 +203,7 @@
         index();
         break;
     }
-
+    echo "</main>";
     require("footer.php"); 
 ?>
 
