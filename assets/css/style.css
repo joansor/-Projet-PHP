@@ -13,23 +13,21 @@ body{
     
 }
 header{
-background: white;
-width : 100%;
+background: black;
 text-align: center;
+border-bottom: solid 3px orangered;
+
 }
 img#imageheader{
 
-    width: 50%;
-    height: 150px;
-    opacity: 0.3;
+    width: 100%;
+    height: 100%;
 
 }
 main{
-    min-height: 600px;
     
-    background: url(../images/mathbg.jpg);
-    background-repeat: no-repeat;
-    background-size: 100%;
+    background: black;
+    min-height: 580px;
     
 }
    
@@ -37,7 +35,7 @@ main{
     width: 500px;
     height: 500px;
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 50%;
     transform:translate(-50%, -50%);
     -webkit-transform:translate(-50%, -50%);
@@ -52,8 +50,8 @@ main{
 position: relative;
 width: 150px;
 height: 150px;
-border : solid 1px;
-background-color: black;
+background-color: #43494e;
+box-shadow: 10px 5px 5px orangered;
 -webkit-border-radius: 5px;
 -moz-border-radius: 5px;
 -ms-border-radius: 5px;
@@ -123,6 +121,7 @@ input.resultat{
 input{
 
     color:white;
+
 }
 p{
 
@@ -135,6 +134,10 @@ footer{
     background-color: #43494e;
     height: 150px;
     width: 100%;
+}
+#divfooter{
+
+    padding-top: 20px
 }
 #text{
 
